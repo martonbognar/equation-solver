@@ -12,7 +12,7 @@ elementList([H | T]) --> (subgroup(H) | elementWithNum(H)), elementList(T).
 elementList([])      --> [].
 
 % parsing a subgroup in a molecule, such as (CH3)2 in (CH3)2CHOH
-subgroup(m(S, C)) --> ['('], elementList(S), [')'], nr(C).
+subgroup(c(S, C)) --> ['('], elementList(S), [')'], nr(C).
 
 % parsing a single element in a molecule, such as H2 in H2O
 elementWithNum(a(A, N)) --> element(AL), nr(N), { string_chars(A, AL) }.
