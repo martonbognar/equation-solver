@@ -1,10 +1,10 @@
 :- module(parser, [parse/2]).
 
 % parsing an entire equation in the form: X+Y=U+V
-equation(e(L, R)) --> plusParts(L), [E], { E = '=' }, plusParts(R).
+equation(e(L, R)) --> plusParts(L), ['='], plusParts(R).
 
 % parsing one side of the equation in the form: X+Y
-plusParts([H | T]) --> elementList(H), [X], { X = '+' }, !, plusParts(T).
+plusParts([H | T]) --> elementList(H), ['+'], !, plusParts(T).
 plusParts([T])     --> elementList(T).
 
 % parsing one molecule
@@ -12,7 +12,7 @@ elementList([H | T]) --> (subgroup(H) | elementWithNum(H)), elementList(T).
 elementList([])      --> [].
 
 % parsing a subgroup in a molecule, such as (CH3)2 in (CH3)2CHOH
-subgroup(m(S, C)) --> [X], { X = '(' }, elementList(S), [Y], { Y = ')' }, nr(C).
+subgroup(m(S, C)) --> ['('], elementList(S), [')'], nr(C).
 
 % parsing a single element in a molecule, such as H2 in H2O
 elementWithNum(a(A, N)) --> element(AL), nr(N), { string_chars(A, AL) }.
@@ -38,6 +38,15 @@ digit(D) --> [D], { char_type(D, digit) }.
 number(['1']), [T] --> [T], !.
 number(['1'])      --> [].
 
+removeSpaces([], []).
+removeSpaces([' ' | T], Out) :-
+    !,
+    removeSpaces(T, Out).
+removeSpaces([H | T], Out) :-
+    removeSpaces(T, OT),
+    Out = [H | OT].
+
 parse(String, R) :-
     string_chars(String, In),
-    phrase(equation(R), In).
+    removeSpaces(In, Stripped),
+    phrase(equation(R), Stripped).
