@@ -17,9 +17,13 @@ true.
 ?- use_module(solver).
 true.
 
-?- parser:parse("H2O+CO2=C6H12O6+O2", e(L, R)), solver:balanced(L, R, BL, BR).
+?- use_module(printer).
+true.
+
+?- parser:parse("H2O+CO2=C6H12O6+O2", e(L, R)), solver:balanced(L, R, BL, BR), printBalanced(BL, BR).
+6 H2O + 6 CO2 = C6H12O6 + 6 O2
 L = [[a("H", 2), a("O", 1)], [a("C", 1), a("O", 2)]],
 R = [[a("C", 6), a("H", 12), a("O", 6)], [a("O", 2)]],
 BL = [m([a("H", 2), a("O", 1)], 6), m([a("C", 1), a("O", 2)], 6)],
-BR = [m([a("C", 6), a("H", 12), a("O", 6)], 1), m([a("O", 2)], 6)] ;
-false.
+BR = [m([a("C", 6), a("H", 12), a("O", 6)], 1), m([a("O", 2)], 6)] .
+```
