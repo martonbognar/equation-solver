@@ -4,7 +4,7 @@ Currently a work in progress.
 
 ## Usage
 
-1. You need to have [SWI-Prolog](https://www.swi-prolog.org/download/stable) installed on your system (you can use other Prolog distributions on your own risk).
+1. You need to have [SWI-Prolog](https://www.swi-prolog.org/download/stable) installed on your system (you can use other Prolog distributions at your own risk).
 2. Clone this repository or download the files to a directory on your computer.
 3. Start `swipl` from this directory, you will be able to use the predicates provided by the modules in this interpreter.
 
